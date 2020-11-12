@@ -1,18 +1,23 @@
 let socket = io();
+let user;
 
-if (localStorage.getItem('username')) {
-  socket.emit('chat message', `/name ${localStorage.getItem('username')}`);
-}
-
-if (localStorage.getItem('color')) {
-  socket.emit('chat message', `/color ${localStorage.getItem('color')}`);
+if (localStorage.getItem('coolchat-id') !) {
+  socket.emit('reconnect', localStorage.getItem('coolchat-id'));
 }
 
 function appendChatMessage(socket, message) {
   let msg = JSON.parse(message)
-
-  console.log(msg)
   $('#messages').append($('<li>').text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`));
+}
+
+function appendErrorMessage(socket, error) {
+  $('#messages').append($('<li>').text(`Error: ${error}`));
+}
+
+function updateUserInfo(socket, u) {
+  user = JSON.parse(u);
+  console.log(user);
+  localStorage.setItem('coolchat-id',u.id);
 }
 
 $(function () {
@@ -24,12 +29,16 @@ $(function () {
     return false;
   });
 
-  socket.on('message history', function(msgHist) {
-    let messages = JSON.parse(msgHist);
-    messages.forEach(function(message) {
-      appendChatMessage(null,message)
-    })
-  })
+  socket.on('user', updateUserInfo.bind(null,socket))
+
+  // socket.on('message history', function(msgHist) {
+  //   let messages = JSON.parse(msgHist);
+  //   messages.forEach(function(message) {
+  //     appendChatMessage(null,message)
+  //   })
+  // })
+
+  socket.on('error message', appendErrorMessage.bind(null,socket));
 
   socket.on('chat message', appendChatMessage.bind(null,socket));
 
