@@ -1,14 +1,22 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Richard's Cool Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id="app">
+      <header>
+        <h1>Richard's Cool Chat</h1>
+      </header>
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+      </form>
+      <ul id="users"></ul>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./app.js"></script>
