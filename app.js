@@ -4,11 +4,13 @@ let id;
 socket.emit('logged in',localStorage.getItem('coolchat-id'))
 
 function appendChatMessage(socket, msg) {
+  $('#messages').scrollTop($('#messages')[0].scrollHeight);
   if (typeof msg === 'string') msg = JSON.parse(msg);
   $('#messages').prepend($('<li>')
     .html(`<span class="timestamp">${msg.timestamp}</span> ${msg.user.name}: <span class="content">${msg.content}</span>`)
     .css('color',`#${msg.user.color}`)
     .addClass(() => (id === msg.user.id) ? 'user-message' : 'other-message'));
+
 }
 
 function appendErrorMessage(socket, error) {
