@@ -85,9 +85,8 @@ header {
 
 #messages {
   grid-area: messages;
-  /* display: flex; */
-  justify-content: flex-end;
-  flex-direction: column;
+  display: flex;
+  flex-direction: column-reverse;
   list-style-type: none;
   border: 2px greenyellow solid;
   overflow-y: scroll;

@@ -7,13 +7,13 @@ let socket = io();
 
 function appendChatMessage(socket, msg) {
   if (typeof msg === 'string') msg = JSON.parse(msg);
-  $('#messages').append($('<li>')
+  $('#messages').prepend($('<li>')
     .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`)
     .css('color',`#${msg.user.color}`));
 }
 
 function appendErrorMessage(socket, error) {
-  $('#messages').append($('<li>').text(`Error: ${error}`));
+  $('#messages').prepend($('<li>').text(`Error: ${error}`));
 }
 
 function updateUserInfo(socket, u) {
