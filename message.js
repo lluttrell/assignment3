@@ -7,7 +7,7 @@ class Message {
 
   getTimestamp() {
     let timestamp = new Date();
-    return `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`
+    return timestamp.toTimeString().substr(0,8);
   }
 
   isColorChange() {

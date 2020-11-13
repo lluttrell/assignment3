@@ -6,7 +6,7 @@ socket.emit('logged in',localStorage.getItem('coolchat-id'))
 function appendChatMessage(socket, msg) {
   if (typeof msg === 'string') msg = JSON.parse(msg);
   $('#messages').prepend($('<li>')
-    .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`)
+    .html(`<span class="timestamp">${msg.timestamp}</span> ${msg.user.name}: ${msg.content}`)
     .css('color',`#${msg.user.color}`)
     .addClass(() => (id === msg.user.id) ? 'user-message' : 'other-message'));
 }

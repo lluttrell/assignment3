@@ -72,6 +72,11 @@ header {
   font-weight: 300;
 }
 
+.timestamp {
+  color: #444;
+}
+
+
 .error {
   background-color: greenyellow;
   color: #222;
