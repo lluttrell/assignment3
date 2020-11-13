@@ -5,8 +5,9 @@ const Message = require('./message');
 const User = require('./user');
 
 let totalUsers = 0;
-let users = []
-let messages = []
+let allUsers = [];
+let users = [];
+let messages = [];
 
 /**
  * Checks if name is already taken in the user list
@@ -79,14 +80,22 @@ app.get('/app.js', (req,res) => {
 })
 
 io.on('connection', (socket) => {
-  let user = new User(createUserID(), createRandomName());
-  users.push(user);
-  io.emit('user list', JSON.stringify(users))
-  socket.emit('user', JSON.stringify(user))
-  socket.emit('message history', JSON.stringify(messages))
+  let user;
+  socket.on('logged in', function(id) {
+    if (allUsers.filter(u => u.id == id).length > 0) {
+      user = allUsers.filter(u => u.id == id)[0]
+    } else {
+      user = new User(createUserID(), createRandomName());
+      allUsers.push(user);
+    }
+    users.push(user);
+    io.emit('user list', JSON.stringify(users))
+    socket.emit('user', JSON.stringify(user))
+    socket.emit('message history', JSON.stringify(messages))  
+  })
 
   socket.on('disconnect', () => {
-    users = users.filter(u => u.name != user.name )
+    users = users.filter(u => u.id != user.id)
     io.emit('user list', JSON.stringify(users))
   });
 
