@@ -52,6 +52,17 @@ function handleNameChange(socket, message) {
   }
 }
 
+function handleMessage(socket, message) {
+  if (messages.length >= 200) messages = messages.shift();
+  messages.push(message);
+  io.emit('chat message', JSON.stringify(message));
+}
+
+function handleColorChange(socket, message) {
+  message.user.setColor(message.toColorString());
+  io.emit('message history', JSON.stringify(messages))
+}
+
 app.get('/', (req,res) => {
   res.sendFile(__dirname + '/index.html');
 });
@@ -77,16 +88,9 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg) => {
     let message = new Message(user, msg);
-    if (message.isColorChange()) {
-      user.setColor(message.toColorString());
-      io.emit('message history', JSON.stringify(messages))
-    } else if (message.isNameChange()) {
-      handleNameChange(socket, message);
-    } else {
-      if (messages.length >= 200) messages = messages.shift();
-      messages.push(message);
-      io.emit('chat message', JSON.stringify(message));
-    }
+    if (message.isColorChange()) handleColorChange(socket, message);
+    else if (message.isNameChange()) handleNameChange(socket, message);
+    else handleMessage(socket, message);
   });
 
 })
