@@ -82,6 +82,9 @@ header {
   color: #444;
 }
 
+.content {
+  color: greenyellow;
+}
 
 .error {
   background-color: greenyellow;
