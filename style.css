@@ -91,7 +91,8 @@ header {
 #messages li {
   padding: 5px 10px;
   width: 100%;
-  height: auto;
+  /* min-height: 2rem; */
+  /* height: auto; */
   overflow-wrap: break-word;
 }
 
@@ -117,3 +118,23 @@ header {
 #users li:nth-child(odd) {
   background: #252525;
 }
+/* https://www.digitalocean.com/community/tutorials/css-scrollbars */
+/* The emerging W3C standard
+   that is currently Firefox-only */
+   * {
+    scrollbar-width: thin;
+    scrollbar-color:greenyellow #444;
+  }
+  
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    background: orange;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: blue;
+    border-radius: 20px;
+    border: 3px solid orange;
+  }
