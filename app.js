@@ -9,7 +9,7 @@ function appendChatMessage(socket, msg) {
   if (typeof msg === 'string') msg = JSON.parse(msg);
   $('#messages').append($('<li>')
     .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`))
-    .css('color','');
+    .css('color',`#${msg.user.color}`);
 }
 
 function appendErrorMessage(socket, error) {
