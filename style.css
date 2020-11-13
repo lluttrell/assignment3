@@ -64,8 +64,12 @@ header {
   align-items: center;
 }
 
-.current-user {
-  font-weight: 700;
+.user-message {
+  font-weight: 800;
+}
+
+.other-message{ 
+  font-weight: 300;
 }
 
 #app {

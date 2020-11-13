@@ -1,4 +1,5 @@
 let socket = io();
+let id;
 
 // if (localStorage.getItem('coolchat-name')) {
 //   user = JSON.parse(u)
@@ -9,7 +10,8 @@ function appendChatMessage(socket, msg) {
   if (typeof msg === 'string') msg = JSON.parse(msg);
   $('#messages').prepend($('<li>')
     .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`)
-    .css('color',`#${msg.user.color}`));
+    .css('color',`#${msg.user.color}`)
+    .addClass(() => (id === msg.user.id) ? 'user-message' : 'other-message'));
 }
 
 function appendErrorMessage(socket, error) {
@@ -19,8 +21,10 @@ function appendErrorMessage(socket, error) {
 function updateUserInfo(socket, u) {
   let user = JSON.parse(u);
   id = user.id;
+  console.log(id);
   // localStorage.setItem('coolchat-user-id', id);
 }
+
 
 $(function () {
 

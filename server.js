@@ -4,7 +4,7 @@ const io = require('socket.io')(http);
 const Message = require('./message');
 const User = require('./user');
 
-let userHistory = []
+let totalUsers = 0;
 let users = []
 let messages = []
 
@@ -38,12 +38,13 @@ function createRandomName() {
 }
 
 function createUserID() {
-  return users.length + 2
+  totalUsers++;
+  return totalUsers
 }
 
 function handleNameChange(socket, message) {
   if (usernameExists(message.toNameString())) {
-    socket.emit('error message', 'Name already taken');
+    socket.emit('error message', `username ${message.toNameString()} already taken`);
   } else {
     message.user.name = message.toNameString();
     io.emit('user list', JSON.stringify(users));
@@ -84,6 +85,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     users = users.filter(u => u.name != user.name )
+    io.emit('user list', JSON.stringify(users))
   });
 
   socket.on('chat message', (msg) => {
