@@ -1,7 +1,7 @@
 class Message {
   constructor(user, content) {
     this.user = user;
-    this.content = content
+    this.content = this.emojiReplace(content)
     this.timestamp = this.getTimestamp();
   }
 
@@ -32,6 +32,15 @@ class Message {
     } else {
       return false
     }
+  }
+
+  emojiReplace(string) {
+    return string
+      .replace(':)',String.fromCodePoint(0x1F600))
+      .replace(':(',String.fromCodePoint(0x1F641))
+      .replace(':o',String.fromCodePoint(0x1F62F))
+      .replace(':O',String.fromCodePoint(0x1F632))
+      .replace('<3',String.fromCodePoint(0x2764));
   }
 }
 
