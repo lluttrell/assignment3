@@ -47,6 +47,7 @@ function handleNameChange(socket, message) {
     message.user.name = message.toNameString();
     io.emit('user list', JSON.stringify(users));
     socket.emit('user', JSON.stringify(message.user));
+    io.emit('message history', JSON.stringify(messages))
   }
 }
 
@@ -80,7 +81,9 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     let message = new Message(user, msg);
     if (message.isColorChange()) {
-      user.setColor(message.toColorString())
+      user.setColor(message.toColorString());
+      io.emit('message history', JSON.stringify(messages))
+      console.log(messages)
     } else if (message.isNameChange()) {
       handleNameChange(socket, message);
     } else {

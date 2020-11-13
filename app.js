@@ -8,8 +8,9 @@ let socket = io();
 function appendChatMessage(socket, msg) {
   if (typeof msg === 'string') msg = JSON.parse(msg);
   $('#messages').append($('<li>')
-    .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`))
-    .css('color',`#${msg.user.color}`);
+    .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`)
+    .css('color',`#${msg.user.color}`));
+  console.log(msg.user.color); 
 }
 
 function appendErrorMessage(socket, error) {
@@ -34,6 +35,7 @@ $(function () {
   socket.on('user', updateUserInfo.bind(null,socket))
 
   socket.on('message history', function(msgHist) {
+    $('#messages').empty();
     let messages = JSON.parse(msgHist);
     messages.forEach(function(message) {
       appendChatMessage(null,message)
