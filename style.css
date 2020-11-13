@@ -56,6 +56,10 @@ header {
   justify-content: center;
 }
 
+.current-user {
+  font-weight: 700;
+}
+
 #app {
   height: 95%;
   width: 99%;

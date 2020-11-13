@@ -4,7 +4,6 @@ const io = require('socket.io')(http);
 const Message = require('./message');
 const User = require('./user');
 
-let connectedUsers = []
 let users = []
 let messages = []
 
@@ -31,7 +30,7 @@ function getRandomInt(min, max) {
  * Creates a random username, checks to ensure name isn't taken
  */
 function createRandomName() {
-  let uname
+  let uname;
   do uname =`user${getRandomInt(100,999)}`
   while (usernameExists(uname))
   return uname
@@ -66,20 +65,12 @@ app.get('/app.js', (req,res) => {
 io.on('connection', (socket) => {
   let user = new User(createUserID(), createRandomName());
   users.push(user);
-  connectedUsers.push(user)
   io.emit('user list', JSON.stringify(users))
   socket.emit('user', JSON.stringify(user))
-
-  socket.on('reconnect', (id) => {
-    user = users.filter(u => u.id = id)[0];
-    connectedUsers.push(user)
-    io.emit('user list', JSON.stringify(users))
-    socket.emit('user', JSON.stringify(user))
-  })
-  
+  socket.emit('message history', JSON.stringify(messages))
   //io.emit('chat message', `${user.name} connected`);
 
-  socket.emit('message history', JSON.stringify(messages))
+  
 
   socket.on('disconnect', () => {
     users = users.filter(u => u.name != user.name )
