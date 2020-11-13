@@ -72,6 +72,12 @@ header {
   font-weight: 300;
 }
 
+.error {
+  background-color: greenyellow;
+  color: #222;
+  font-weight: 800;
+}
+
 #app {
   height: 95%;
   width: 99%;
@@ -103,9 +109,9 @@ header {
   overflow-wrap: break-word;
 }
 
-#messages li:nth-child(odd) {
+/* #messages li:nth-child(odd) {
   background: #252525;
-}
+} */
 
 #users {
   width: 100%;

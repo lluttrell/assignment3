@@ -15,7 +15,9 @@ function appendChatMessage(socket, msg) {
 }
 
 function appendErrorMessage(socket, error) {
-  $('#messages').prepend($('<li>').text(`Error: ${error}`));
+  $('#messages').prepend($('<li>')
+    .text(`Error: ${error}`)
+    .addClass('error'));
 }
 
 function updateUserInfo(socket, u) {

@@ -60,8 +60,10 @@ function handleMessage(socket, message) {
 }
 
 function handleColorChange(socket, message) {
-  message.user.setColor(message.toColorString());
-  io.emit('message history', JSON.stringify(messages))
+  if (message.user.setColor(message.toColorString()))
+    io.emit('message history', JSON.stringify(messages))
+  else
+    socket.emit('error message', `invalid hex code`);  
 }
 
 app.get('/', (req,res) => {
