@@ -23,16 +23,25 @@ function updateUserInfo(socket, u) {
   localStorage.setItem('coolchat-id', user.id);
 }
 
-$(function () {
+function updateUserList(socket, userList) {
+  let users = JSON.parse(userList);
+  $('#users').empty();
   
+  users.forEach(function(u) {
+    $('#users').append($('<li>')
+      .text(`${u.name}`)
+      .css('color', `#${u.color}`)
+      .addClass(() => (id == u.id) ? 'current-user' : ''));
+  })
+}
+
+$(function () {
   $('form').submit(function(e) {
     e.preventDefault();
     socket.emit('chat message', $('#m').val());
     $('#m').val('');
     return false;
   });
-
-  socket.on('user', updateUserInfo.bind(null,socket))
 
   socket.on('message history', function(msgHist) {
     $('#messages').empty();
@@ -42,16 +51,9 @@ $(function () {
     })
   })
 
+  socket.on('user', updateUserInfo.bind(null,socket))
   socket.on('error message', appendErrorMessage.bind(null,socket));
-
   socket.on('chat message', appendChatMessage.bind(null,socket));
-
-  socket.on('user list', function(userList) {
-    let users = JSON.parse(userList);
-    $('#users').empty();
-    users.forEach(function(user) {
-      $('#users').append($('<li>').text(`${user.name}`));
-    })
-  })
+  socket.on('user list', updateUserList.bind(null, socket));
 });
 
