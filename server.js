@@ -65,7 +65,6 @@ app.get('/app.js', (req,res) => {
 })
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
   let user = new User(createUserID(), createRandomName());
   users.push(user);
   io.emit('user list', JSON.stringify(users))
