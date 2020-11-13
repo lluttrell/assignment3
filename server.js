@@ -56,7 +56,7 @@ function handleNameChange(socket, message) {
 
 function sortUsers(users) {
   let removedDuplicates = users.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
-  return removedDuplicates.sort((a,b)=> a.name < b.name)
+  return removedDuplicates.sort((a,b) => a.name.localeCompare(b.name));
 }
 
 function handleMessage(socket, message) {
