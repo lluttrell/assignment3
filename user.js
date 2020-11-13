@@ -8,7 +8,6 @@ class User {
   setColor(color) {
     if (/^([0-9A-F]{3}){1,2}$/i.test(color)) {
       this.color = color;
-      console.log('set color')
       return true;
     }
     return false;

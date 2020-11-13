@@ -79,7 +79,6 @@ io.on('connection', (socket) => {
     if (message.isColorChange()) {
       user.setColor(message.toColorString());
       io.emit('message history', JSON.stringify(messages))
-      console.log(messages)
     } else if (message.isNameChange()) {
       handleNameChange(socket, message);
     } else {
