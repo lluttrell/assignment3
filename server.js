@@ -69,13 +69,9 @@ io.on('connection', (socket) => {
   io.emit('user list', JSON.stringify(users))
   socket.emit('user', JSON.stringify(user))
   socket.emit('message history', JSON.stringify(messages))
-  //io.emit('chat message', `${user.name} connected`);
-
-  
 
   socket.on('disconnect', () => {
     users = users.filter(u => u.name != user.name )
-    //io.emit('chat message', `${user.name} disconnected`);
   });
 
   socket.on('chat message', (msg) => {

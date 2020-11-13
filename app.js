@@ -10,7 +10,6 @@ function appendChatMessage(socket, msg) {
   $('#messages').append($('<li>')
     .text(`${msg.timestamp} ${msg.user.name}: ${msg.content}`)
     .css('color',`#${msg.user.color}`));
-  console.log(msg.user.color); 
 }
 
 function appendErrorMessage(socket, error) {
