@@ -48,10 +48,15 @@ function handleNameChange(socket, message) {
     socket.emit('error message', `username ${message.toNameString()} already taken`);
   } else {
     message.user.name = message.toNameString();
-    io.emit('user list', JSON.stringify(users));
+    io.emit('user list', JSON.stringify(sortUsers(users)));
     socket.emit('user', JSON.stringify(message.user));
     io.emit('message history', JSON.stringify(messages))
   }
+}
+
+function sortUsers(users) {
+  let removedDuplicates = users.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+  return removedDuplicates.sort((a,b)=> a.name < b.name)
 }
 
 function handleMessage(socket, message) {
@@ -89,14 +94,14 @@ io.on('connection', (socket) => {
       allUsers.push(user);
     }
     users.push(user);
-    io.emit('user list', JSON.stringify(users))
+    io.emit('user list', JSON.stringify(sortUsers(users)))
     socket.emit('user', JSON.stringify(user))
     socket.emit('message history', JSON.stringify(messages))  
   })
 
   socket.on('disconnect', () => {
     users = users.filter(u => u.id != user.id)
-    io.emit('user list', JSON.stringify(users))
+    io.emit('user list', JSON.stringify(sortUsers(users)))
   });
 
   socket.on('chat message', (msg) => {
