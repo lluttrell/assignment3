@@ -66,10 +66,12 @@ function handleMessage(socket, message) {
 }
 
 function handleColorChange(socket, message) {
-  if (message.user.setColor(message.toColorString()))
+  if (message.user.setColor(message.toColorString())) {
     io.emit('message history', JSON.stringify(messages))
-  else
+    io.emit('user list', JSON.stringify(sortUsers(users)));
+    } else {
     socket.emit('error message', `invalid hex code`);  
+    }
 }
 
 app.get('/', (req,res) => {
@@ -94,8 +96,8 @@ io.on('connection', (socket) => {
       allUsers.push(user);
     }
     users.push(user);
-    io.emit('user list', JSON.stringify(sortUsers(users)))
     socket.emit('user', JSON.stringify(user))
+    io.emit('user list', JSON.stringify(sortUsers(users)))
     socket.emit('message history', JSON.stringify(messages))  
   })
 

@@ -74,7 +74,8 @@ header {
 
 .current-user {
   background-color: greenyellow;
-  color: #222
+  color: #222 !important;
+  font-weight: 800;
 }
 
 .timestamp {
@@ -133,7 +134,6 @@ header {
   height: auto;
   overflow-wrap: break-word;
 }
-
 
 /* https://www.digitalocean.com/community/tutorials/css-scrollbars */
 /* The emerging W3C standard

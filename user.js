@@ -2,7 +2,7 @@ class User {
   constructor(id, name) {
     this.id = id;
     this.name = name;
-    this.color = '9acd32';
+    this.color = 'ADFF2F';
   }
 
   setColor(color) {
