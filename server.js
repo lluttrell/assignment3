@@ -78,7 +78,7 @@ function handleNameChange(socket, message) {
  * @param {Message} message 
  */
 function handleMessage(socket, message) {
-  if (messages.length >= 200) messages = messages.shift();
+  if (messages.length >= 200) messages.shift();
   messages.push(message);
   io.emit('chat message', JSON.stringify(message));
 }
