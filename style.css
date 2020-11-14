@@ -79,7 +79,8 @@ header {
 }
 
 .timestamp {
-  color: #444;
+  color: #666;
+  font-weight: 300;
 }
 
 .content {
