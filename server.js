@@ -91,6 +91,10 @@ io.on('connection', (socket) => {
   socket.on('logged in', function(id) {
     if (allUsers.filter(u => u.id == id).length > 0) {
       user = allUsers.filter(u => u.id == id)[0]
+      if (usernameExists(user.name)) {
+        user.name = createRandomName();
+        console.log(`renaming user ${user.name}`);
+      }
     } else {
       user = new User(createUserID(), createRandomName());
       allUsers.push(user);

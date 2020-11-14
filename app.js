@@ -22,7 +22,6 @@ function appendErrorMessage(socket, error) {
 function updateUserInfo(socket, u) {
   let user = JSON.parse(u);
   id = user.id;
-  console.log(id)
   localStorage.setItem('coolchat-id', user.id);
 }
 
@@ -31,12 +30,10 @@ function updateUserList(socket, userList) {
   $('#users').empty();
   
   users.forEach(function(u) {
-    console.log(u)
     $('#users').append($('<li>')
       .text(`${u.name}`)
       .css('color', `#${u.color}`)
       .addClass(() => (localStorage.getItem('coolchat-id') == u.id) ? 'current-user' : ''));
-    console.log(u.color)
     })
 }
 
